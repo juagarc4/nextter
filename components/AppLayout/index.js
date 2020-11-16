@@ -1,4 +1,4 @@
-import styles, { globalStyles } from "./styles"
+import styles, { globalStyles } from './styles.js'
 
 export default function AppLayout({ children }) {
   return (
