@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import AppLayout from 'components/AppLayout'
 import Nexttit from 'components/Nexttit'
+import useUser from 'hooks/useUser'
+import { fetchLatestNexttits } from 'firebase/client'
 
 export default function Homepage() {
   const [timeline, setTimeline] = useState([])
+  const user = useUser()
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/statuses/home_timeline')
-      .then((res) => res.json())
-      .then(setTimeline)
-  }, [])
+    user && fetchLatestNexttits().then(setTimeline)
+  }, [user])
 
   return (
     <>
@@ -18,17 +19,21 @@ export default function Homepage() {
           <h2>Inicio</h2>
         </header>
         <section>
-          {timeline.map((nexttit) => {
-            return (
-              <Nexttit
-                avatar={nexttit.avatar}
-                id={nexttit.username}
-                key={nexttit.id}
-                message={nexttit.message}
-                username={nexttit.username}
-              />
-            )
-          })}
+          {timeline.map(
+            ({ avatar, content, id, createdAt, userId, userName }) => {
+              return (
+                <Nexttit
+                  avatar={avatar}
+                  content={content}
+                  createdAt={createdAt}
+                  id={id}
+                  key={id}
+                  userId={userId}
+                  userName={userName}
+                />
+              )
+            }
+          )}
         </section>
         <nav></nav>
       </AppLayout>
@@ -36,25 +41,27 @@ export default function Homepage() {
         {`
           header {
             align-items: center;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #eee;
             display: flex;
             height: 49px;
             position: sticky;
             top: 0;
             width: 100%;
+            background: #ffffffee;
+            backdrop-filter: blur(5px);
           }
           h2 {
             font-size: 21px;
             font-weight: 800;
+            padding-left: 15px;
           }
-          section {
-            padding-top: 56px;
-          }
+
           nav {
+            background-color: #ffffff;
             bottom: 0;
-            border-top: 1px solid #ccc;
+            border-top: 1px solid #eee;
             height: 49px;
-            position: absolute;
+            position: sticky;
             width: 100%;
           }
         `}
