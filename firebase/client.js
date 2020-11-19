@@ -39,10 +39,11 @@ export const loginWithGitHub = () => {
   return firebase.auth().signInWithPopup(githubProvider)
 }
 
-export const addNexttit = ({ avatar, content, userId, userName }) => {
+export const addNexttit = ({ avatar, content, image, userId, userName }) => {
   return db.collection('nexttits').add({
     avatar,
     content,
+    image,
     userId,
     userName,
     createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
@@ -54,25 +55,26 @@ export const addNexttit = ({ avatar, content, userId, userName }) => {
 export const fetchLatestNexttits = () => {
   return db
     .collection('nexttits')
+    .orderBy('createdAt', 'desc')
     .get()
     .then(({ docs }) => {
       return docs.map((doc) => {
         const data = doc.data()
+        console.log(data)
         const id = doc.id
         const { createdAt } = data
-        const normalizedCreatedAt = new Intl.DateTimeFormat('de-DE', {
-          year: 'numeric',
-          day: '2-digit',
-          month: 'short',
-        })
-          .format(createdAt.seconds * 1000)
-          .toString()
 
         return {
           ...data,
           id,
-          createdAt: normalizedCreatedAt,
+          createdAt: +createdAt.toDate(),
         }
       })
     })
+}
+
+export const uploadImage = (file) => {
+  const ref = firebase.storage().ref(`/images/${file.name}`)
+  const task = ref.put(file)
+  return task
 }

@@ -1,13 +1,16 @@
 import Avatar from 'components/Avatar'
+import useTimeAgo from 'hooks/useTimeAgo'
 
 export default function Nexttit({
   avatar,
   content,
+  image,
   createdAt,
   id,
   userId,
   userName,
 }) {
+  const timeago = useTimeAgo(createdAt)
   return (
     <>
       <article key={id}>
@@ -18,9 +21,10 @@ export default function Nexttit({
           <header>
             <strong>{userName}</strong>
             <span>·</span>
-            <date>{createdAt}</date>
+            <time>{timeago}</time>
           </header>
           <p>{content}</p>
+          {image && <img src={image} />}
         </section>
       </article>
       <style jsx>
@@ -40,9 +44,15 @@ export default function Nexttit({
             color: #555;
             padding: 10px;
           }
-          date {
+          time {
             color: #555;
             font-size: 14px;
+          }
+          img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
           }
         `}
       </style>

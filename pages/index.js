@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import Head from 'next/head'
-import loginWithGitHub from 'firebase/client'
+import { loginWithGitHub } from 'firebase/client'
 
 import AppLayout from 'components/AppLayout'
 import Button from 'components/Button'
@@ -65,6 +65,7 @@ export default function Home() {
         }
         h1 {
           color: ${colors.secondary};
+          font-size: 32px;
           font-weight: 800;
           margin-bottom: 16px;
         }
