@@ -1,5 +1,7 @@
 import Avatar from 'components/Avatar'
-import useTimeAgo from 'hooks/useTimeAgo'
+import useDateTimeFormat from 'hooks/useDateTimeFormat'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Nexttit({
   avatar,
@@ -10,10 +12,16 @@ export default function Nexttit({
   userId,
   userName,
 }) {
-  const timeago = useTimeAgo(createdAt)
+  const timeago = useDateTimeFormat(createdAt)
+  const createdAtFormated = useDateTimeFormat(createdAt)
+  const router = useRouter()
+  const handleArticleClick = (e) => {
+    e.preventDefault()
+    router.push('/status/[id]', `/status/${id}`)
+  }
   return (
     <>
-      <article key={id}>
+      <article key={id} onClick={handleArticleClick}>
         <div>
           <Avatar alt={userName} src={avatar} />
         </div>
@@ -21,7 +29,11 @@ export default function Nexttit({
           <header>
             <strong>{userName}</strong>
             <span>·</span>
-            <time>{timeago}</time>
+            <Link href={`/status/[id]`} as={`/status/${id}`}>
+              <a>
+                <time title={createdAtFormated}>{timeago}</time>
+              </a>
+            </Link>
           </header>
           <p>{content}</p>
           {image && <img src={image} />}
@@ -34,6 +46,10 @@ export default function Nexttit({
             padding: 10px 15px;
             border-bottom: 1px solid #eee;
           }
+          article:hover {
+            background: #f5f8fa;
+            cursor: pointer;
+          }
           div {
             padding-right: 10px;
           }
@@ -44,15 +60,20 @@ export default function Nexttit({
             color: #555;
             padding: 10px;
           }
-          time {
-            color: #555;
-            font-size: 14px;
-          }
+
           img {
             width: 100%;
             height: auto;
             border-radius: 10px;
             margin-top: 10px;
+          }
+          a {
+            color: #555;
+            font-size: 14px;
+            text-decoration: none;
+          }
+          a:hover {
+            text-decoration: underline;
           }
         `}
       </style>

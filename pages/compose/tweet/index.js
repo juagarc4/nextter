@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import AppLayout from 'components/AppLayout'
 import Button from 'components/Button'
 import useUser from 'hooks/useUser'
 import { addNexttit, uploadImage } from 'firebase/client'
@@ -91,37 +90,35 @@ export default function ComposeTweet() {
 
   return (
     <>
-      <AppLayout>
-        <Head>
-          <title>Inicio / Nextter</title>
-        </Head>
-        <section className="form-container">
-          {user && (
-            <section className="avatar-container">
-              <Avatar src={user.avatar} />
+      <Head>
+        <title>Inicio / Nextter</title>
+      </Head>
+      <section className="form-container">
+        {user && (
+          <section className="avatar-container">
+            <Avatar src={user.avatar} />
+          </section>
+        )}
+        <form onSubmit={handleSubmit}>
+          <textarea
+            onChange={handleChange}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            placeholder="What is happening?"
+            value={message}
+          ></textarea>
+          {imageURL && (
+            <section className="remove-image">
+              <button onClick={() => setImageURL(null)}>x</button>
+              <img src={imageURL} />
             </section>
           )}
-          <form onSubmit={handleSubmit}>
-            <textarea
-              onChange={handleChange}
-              onDragEnter={handleDragEnter}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              placeholder="What is happening?"
-              value={message}
-            ></textarea>
-            {imageURL && (
-              <section className="remove-image">
-                <button onClick={() => setImageURL(null)}>x</button>
-                <img src={imageURL} />
-              </section>
-            )}
-            <div>
-              <Button disabled={isButtonDisabled}>Nexttear</Button>
-            </div>
-          </form>
-        </section>
-      </AppLayout>
+          <div>
+            <Button disabled={isButtonDisabled}>Nexttear</Button>
+          </div>
+        </form>
+      </section>
       <style jsx>{`
         div {
           padding: 15px;

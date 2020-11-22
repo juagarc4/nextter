@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import Head from 'next/head'
 import { loginWithGitHub } from 'firebase/client'
 
-import AppLayout from 'components/AppLayout'
 import Button from 'components/Button'
 import GitHub from 'components/Icons/GitHub'
 
@@ -31,24 +30,22 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AppLayout>
-        <section>
-          <img src="/nextter.png" alt="nextter" />
-          <h1>Nextter</h1>
-          <h2>
-            Talk about development <br /> with developers 👩‍💻👨‍💻
-          </h2>
-          <div>
-            {user === USER_STATES.NOT_LOGGED && (
-              <Button onClick={handleClick}>
-                <GitHub fill={colors.white} width={24} height={24}></GitHub>
-                Login with GitHub
-              </Button>
-            )}
-            {user === USER_STATES.NOT_KNOWN && <img src="/spinner.gif" />}
-          </div>
-        </section>
-      </AppLayout>
+      <section>
+        <img src="/nextter.png" alt="nextter" />
+        <h1>Nextter</h1>
+        <h2>
+          Talk about development <br /> with developers 👩‍💻👨‍💻
+        </h2>
+        <div>
+          {user === USER_STATES.NOT_LOGGED && (
+            <Button onClick={handleClick}>
+              <GitHub fill={colors.white} width={24} height={24}></GitHub>
+              Login with GitHub
+            </Button>
+          )}
+          {user === USER_STATES.NOT_KNOWN && <img src="/spinner.gif" />}
+        </div>
+      </section>
 
       <style jsx>{`
         img {

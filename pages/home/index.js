@@ -7,7 +7,6 @@ import { fetchLatestNexttits } from 'firebase/client'
 
 import useUser from 'hooks/useUser'
 
-import AppLayout from 'components/AppLayout'
 import Nexttit from 'components/Nexttit'
 import Create from 'components/Icons/Create'
 import Home from 'components/Icons/Home'
@@ -25,49 +24,47 @@ export default function Homepage() {
 
   return (
     <>
-      <AppLayout>
-        <Head>
-          <title>Create a Nextit / NExtter</title>
-        </Head>
-        <header>
-          <h2>Inicio</h2>
-        </header>
-        <section>
-          {timeline.map(
-            ({ avatar, content, image, id, createdAt, userId, userName }) => {
-              return (
-                <Nexttit
-                  avatar={avatar}
-                  content={content}
-                  image={image}
-                  createdAt={createdAt}
-                  id={id}
-                  key={id}
-                  userId={userId}
-                  userName={userName}
-                />
-              )
-            }
-          )}
-        </section>
-        <nav>
-          <Link href="/">
-            <a>
-              <Home width={32} heigth={32} stroke="#09f" />
-            </a>
-          </Link>
-          <Link href="/search">
-            <a>
-              <Search width={32} heigth={32} stroke="#09f" />
-            </a>
-          </Link>
-          <Link href="/compose/tweet">
-            <a>
-              <Create width={32} heigth={32} stroke="#09f" />
-            </a>
-          </Link>
-        </nav>
-      </AppLayout>
+      <Head>
+        <title>Create a Nextit / NExtter</title>
+      </Head>
+      <header>
+        <h2>Inicio</h2>
+      </header>
+      <section>
+        {timeline.map(
+          ({ avatar, content, image, id, createdAt, userId, userName }) => {
+            return (
+              <Nexttit
+                avatar={avatar}
+                content={content}
+                image={image}
+                createdAt={createdAt}
+                id={id}
+                key={id}
+                userId={userId}
+                userName={userName}
+              />
+            )
+          }
+        )}
+      </section>
+      <nav>
+        <Link href="/">
+          <a>
+            <Home width={32} heigth={32} stroke="#09f" />
+          </a>
+        </Link>
+        <Link href="/search">
+          <a>
+            <Search width={32} heigth={32} stroke="#09f" />
+          </a>
+        </Link>
+        <Link href="/compose/tweet">
+          <a>
+            <Create width={32} heigth={32} stroke="#09f" />
+          </a>
+        </Link>
+      </nav>
       <style jsx>
         {`
           header {

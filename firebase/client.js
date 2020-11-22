@@ -39,11 +39,11 @@ export const loginWithGitHub = () => {
   return firebase.auth().signInWithPopup(githubProvider)
 }
 
-export const addNexttit = ({ avatar, content, image, userId, userName }) => {
+export const addNexttit = ({ avatar, content, img, userId, userName }) => {
   return db.collection('nexttits').add({
     avatar,
     content,
-    image,
+    img,
     userId,
     userName,
     createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
@@ -60,7 +60,6 @@ export const fetchLatestNexttits = () => {
     .then(({ docs }) => {
       return docs.map((doc) => {
         const data = doc.data()
-        console.log(data)
         const id = doc.id
         const { createdAt } = data
 
