@@ -34,7 +34,6 @@ export default function ComposeTweet() {
       const onProgress = () => {}
       const onError = () => {}
       const onComplete = () => {
-        console.log('oncomplete')
         task.snapshot.ref.getDownloadURL().then(setImageURL)
       }
       task.on('state_changed', onProgress, onError, onComplete)
