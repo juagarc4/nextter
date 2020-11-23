@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 
-import { fetchLatestNexttits } from 'firebase/client'
+import { listenLatestNextits } from 'firebase/client'
 
 import useUser from 'hooks/useUser'
 
@@ -19,7 +19,12 @@ export default function Homepage() {
   const user = useUser()
 
   useEffect(() => {
-    user && fetchLatestNexttits().then(setTimeline)
+    let unsubscribe
+
+    if (user) {
+      unsubscribe = listenLatestNextits(setTimeline)
+    }
+    return () => unsubscribe && unsubscribe()
   }, [user])
 
   return (

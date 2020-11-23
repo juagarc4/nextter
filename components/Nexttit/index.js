@@ -1,6 +1,7 @@
 import Avatar from 'components/Avatar'
 // import useTimeAgo from 'hooks/useTimeAgo'
 import useDateTimeFormat from 'hooks/useDateTimeFormat'
+import useTimeAgo from 'hooks/useTimeAgo'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -13,7 +14,7 @@ export default function Nexttit({
   userId,
   userName,
 }) {
-  const timeago = useDateTimeFormat(createdAt)
+  const timeago = useTimeAgo(createdAt)
   const createdAtFormated = useDateTimeFormat(createdAt)
   const router = useRouter()
   const handleArticleClick = (e) => {
